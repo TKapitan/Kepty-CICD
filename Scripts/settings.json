@@ -1,0 +1,61 @@
+{
+    "name": "Kepty CI/CD template",
+    "country": "au",
+    "memoryLimit": "8G",
+    "previousApps": "",
+    "appFolders": "App",
+    "testFolders": "Test",
+    "installTestRunner": true,
+    "installTestFramework": true,
+    "installTestLibraries": true,
+    "installPerformanceToolkit": true,
+    "doNotSignApps": true,
+    "enableCodeCop": true,
+    "enableAppSourceCop": true,
+    "enablePerTenantExtensionCop": true,
+    "enableUICop": true,
+    "appSourceCopMandatoryAffixes": "PTE ",
+    "appSourceCopSupportedCountries": "au",
+    "bcContainerHelperVersion": "",
+    "additionalCountries": "nz",
+    "vaultNameForLocal": "BuildVariables",
+    "Kepty_imageName": "bcimage",
+    "Kepty_includedPreProcessorSymbols": "",
+    "Kepty_preProcessorSymbolsVersion": "",
+    "Kepty_publishAppFileLocation": "//Shared/ReleasedBCApps/",
+    "Kepty_licenseFileLocation": "",
+    "Kepty_sourceAppAppJsonFileLocation": "../App/app.json",
+    "Kepty_sourceTestAppJsonFileLocation": "../Test/app.json",
+    "versions": [
+        {
+            "version": "ci",
+            "artifact": "///{COUNTRY}/Current",
+            "CreateRuntimePackages": true,
+            "Kepty_failOn": "warning",
+            "Kepty_includedPreProcessorSymbols": "",
+            "Kepty_preProcessorSymbolsVersion": "Current"
+        },
+        {
+            "version": "current",
+            "artifact": "///{COUNTRY}/Current",
+            "Kepty_failOn": "error",
+            "CreateRuntimePackages": true,
+            "Kepty_includedPreProcessorSymbols": "",
+            "Kepty_preProcessorSymbolsVersion": "Current"
+        },
+        {
+            "version": "nextmajor",
+            "artifact": "///{COUNTRY}/NextMajor/{INSIDERSASTOKEN}",
+            "Kepty_failOn": "error",
+            "Kepty_includedPreProcessorSymbols": "",
+            "Kepty_preProcessorSymbolsVersion": "Next-Major"
+        },
+        {
+            "version": "nextminor",
+            "artifact": "///{COUNTRY}/NextMinor/{INSIDERSASTOKEN}",
+            "Kepty_failOn": "error",
+            "Kepty_includedPreProcessorSymbols": "",
+            "Kepty_preProcessorSymbolsVersion": "Current"
+        }
+    ]
+}

@@ -1,0 +1,73 @@
+pr: none
+trigger: none
+
+schedules:
+- cron: '0 0 * * Sun'
+  displayName: Once per week, Sunday, 0:00 GST (Current)
+  branches:
+    include:
+    - master
+  always: true
+
+pool:
+  name: 'Planned'
+
+variables:
+- group: BuildVariables
+
+jobs:
+- job: Build
+  timeoutInMinutes: 300
+  variables:
+    build.clean: all
+    platform: x64
+    version: 'current'
+    skipComponentGovernanceDetection: True
+    validateAgainstPreviousApp: False
+
+  steps:
+  - task: PowerShell@2
+    displayName: 'Update repository'
+    inputs:
+      filePath: 'scripts\Kepty-Auto-Update-Repository.ps1'
+      arguments: '-sourceBranch $(build.sourceBranch)'
+      failOnStderr: true
+
+  - task: PowerShell@2
+    displayName: 'Run Pipeline'
+    env:
+      InsiderSasToken: '$(insiderSasToken)'
+      Kepty_artifactType: '$(Kepty_artifactType)'
+      Kepty_artifactVersion: '$(Kepty_artifactVersion)'
+      Kepty_PreProcessorSymbolsCurrent: '$(Kepty_PreProcessorSymbolsCurrent)'
+      Kepty_PreProcessorSymbolsNextMajor: '$(Kepty_artifaKepty_PreProcessorSymbolsNextMajorctVersion)'
+      CodeSignCertPfxFile: '$(CodeSignCertPfxFile)'
+      CodeSignCertPfxPassword: '$(CodeSignCertPfxPassword)'
+    inputs:
+      filePath: 'scripts\DevOps-Pipeline.ps1'
+      arguments: '-version "$(version)" -validateAgainstPreviousApp $(validateAgainstPreviousApp)'
+      warningPreference: 'stop'
+      failOnStderr: true
+      showWarnings: true
+      
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    condition: and(succeeded(),ne(variables['TestResults'],''))
+    inputs:
+      testResultsFormat: JUnit
+      testResultsFiles: '$(testResults)'
+      failTaskOnFailedTests: true
+
+  - task: PowerShell@2
+    displayName: 'Create app File and Store to Shared Dir'
+    inputs:
+      filePath: 'scripts\Kepty-Copy-Apps.ps1'
+      failOnStderr: true
+      
+  - task: PowerShell@2
+    displayName: 'Cleanup'
+    condition: always()
+    inputs:
+      targetType: filePath
+      filePath: 'scripts\Cleanup.ps1'
+      failOnStderr: false
