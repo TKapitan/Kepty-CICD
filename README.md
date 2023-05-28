@@ -6,6 +6,17 @@ Right now, I'm moving my code to a public GitHub repository, but not all files a
 
 This repository and scripts are originally based on the old official CI/CD scripts made by Microsoft. [See the original content](https://github.com/microsoft/AL-Go/blob/main/Scenarios/old/CI_CD_Workshop.md#workshop-repositories).
 
+# Disclaimer
+
+This repository is my open source project. Please note that the project is provided "as is" and without any warranty of any kind, either express or implied. By using or accessing this project, you agree that the use of the project is at your own risk.
+
+If you are looking for stable CI/CD solutions for your Business Central projects, I recommend to use one of these solutions
+
+- [AL Ops](https://marketplace.visualstudio.com/items?itemName=Hodor.hodor-alops) for Azure DevOps made by Waldo
+- [AL-Go](https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/al-go/algo-overview) for GitHub made by Freddy (Microsoft)
+
+These solutions offer many more tools and support probably all processes you can think of for automation.
+
 # Content
 
 - [Supported Scenarios](#supported-scenarios)
@@ -13,7 +24,6 @@ This repository and scripts are originally based on the old official CI/CD scrip
     - [Update Settings.json](#update-settingsjson)
 - [Create a pipeline](#create-a-pipeline)
     - [Azure DevOps Variables](#azure-devops-variables)
-
 
 ## Supported Scenarios
 
