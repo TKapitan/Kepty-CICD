@@ -19,11 +19,22 @@ These solutions offer many more tools and support probably all processes you can
 
 # Content
 
+- [How it works](#how-it-works)
 - [Supported Scenarios](#supported-scenarios)
 - [How to start with this template](#how-to-start-with-this-template)
     - [Update Settings.json](#update-settingsjson)
 - [Create a pipeline](#create-a-pipeline)
     - [Azure DevOps Variables](#azure-devops-variables)
+
+## How it works
+
+The main goal for this solution is to offer Azure DevOps pipelines for self-hosted pipelines that are easy to use, reliable and can work with multilevel dependencies to other your extensions. 
+
+The solution is simple
+- YAML files describe the configuration for the pipeline and how PowerShell functions/code should be used.
+- Azure DevOps agent hosted on your own server (on-prem or virtual Azure server) does all the work.
+- Pipelines has a step (for the Current pipeline only by default) that stores the created app file in a folder (specified in settings.json).
+- If the app depends on other extensions, the script will check this folder and will try to find the latest version of this dependency. Dependencies are determined based on the app.json file. The script always looks for the newest version of the dependency app (the highest version number).
 
 ## Supported Scenarios
 
